@@ -7,7 +7,6 @@ from sklearn.metrics import classification_report
 from joblib import dump
 from features import basic_features
 
-# data.csv must have columns: prompt, essay, grade_level, assignment_type, grade
 df = pd.read_csv("data.csv")
 
 X = []
