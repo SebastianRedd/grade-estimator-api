@@ -6,10 +6,9 @@ from features import basic_features
 
 app = FastAPI()
 
-# allow your GitHub Pages site to call this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # later you can lock to your domain
+    allow_origins=["*"],   
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -21,7 +20,6 @@ class PredictRequest(BaseModel):
     grade_level: str = "11"
     assignment_type: str = "essay"
 
-# load model if exists
 try:
     model = load("grade_model.joblib")
 except:
@@ -38,7 +36,6 @@ def predict(req: PredictRequest):
     feats["assignment_type"] = req.assignment_type
 
     if model is None:
-        # fallback if model not trained yet
         return {
             "letter": "B+",
             "confidence": 0.50,
